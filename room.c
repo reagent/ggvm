@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include "room.h"
 
@@ -15,6 +16,15 @@ Room *room_create(char *name)
   room->monster = NULL;
 
   return room;
+}
+
+void room_attack(Room *room, Player *player)
+{
+  if (room->monster != NULL) {
+    player_attack(player, room->monster);
+  } else {
+    printf("You flail in the air at nothing.\n");
+  }
 }
 
 void room_attach(Room *source, Room *destination, Direction direction)
@@ -36,6 +46,14 @@ void room_attach(Room *source, Room *destination, Direction direction)
       source->west = destination;
       destination->east = source;
       break;
+  }
+}
+
+void room_print_description(Room *room)
+{
+  printf("You have entered the %s\n", room->name);
+  if(room->monster != NULL) {
+    printf("You encounter the %s!\n", room->monster->name);
   }
 }
 

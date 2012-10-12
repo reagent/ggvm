@@ -2,6 +2,7 @@
 #define _room_h
 
 #include "monster.h"
+#include "player.h"
 
 typedef enum {
   NORTH, SOUTH, EAST, WEST
@@ -21,7 +22,9 @@ struct Room {
 typedef struct Room Room;
 
 Room *room_create(char *name);
+void room_attack(Room *room, Player *player);
 void room_attach(Room *source, Room *destination, Direction direction);
+void room_print_description(Room *room);
 int room_destroy(Room *room);
 
 #endif

@@ -1,14 +1,16 @@
 #ifndef _player_h
 #define _player_h
 
+#include "monster.h"
+
 struct Player {
-  char *name;
   int health;
 };
 
 typedef struct Player Player;
 
-Player *player_create(char *name);
+Player *player_create();
+void player_attack(Player *player, Monster *monster);
 int player_destroy(Player *player);
 
 #endif
