@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "map.h"
+#include "room.h"
 
 Map *map_create(Room *start, Player *player)
 {

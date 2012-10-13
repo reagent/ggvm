@@ -1,13 +1,7 @@
 #ifndef _player_h
 #define _player_h
 
-#include "monster.h"
-
-struct Player {
-  int health;
-};
-
-typedef struct Player Player;
+#include "structs.h"
 
 Player *player_create();
 void player_attack(Player *player, Monster *monster);

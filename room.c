@@ -3,6 +3,9 @@
 #include <string.h>
 #include "room.h"
 
+#include "monster.h"
+#include "player.h"
+
 Room *room_create(char *name)
 {
   Room *room = malloc(sizeof(Room));
@@ -22,6 +25,7 @@ void room_attack(Room *room, Player *player)
 {
   if (room->monster != NULL) {
     player_attack(player, room->monster);
+    monster_attack(room->monster, player);
   } else {
     printf("You flail in the air at nothing.\n");
   }

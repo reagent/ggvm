@@ -1,25 +1,7 @@
 #ifndef _room_h
 #define _room_h
 
-#include "monster.h"
-#include "player.h"
-
-typedef enum {
-  NORTH, SOUTH, EAST, WEST
-} Direction;
-
-struct Room {
-  char *name;
-
-  Monster *monster;
-
-  struct Room *north;
-  struct Room *south;
-  struct Room *east;
-  struct Room *west;
-};
-
-typedef struct Room Room;
+#include "structs.h"
 
 Room *room_create(char *name);
 void room_attack(Room *room, Player *player);
