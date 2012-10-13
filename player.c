@@ -8,14 +8,27 @@ Player *player_create(char *name)
   Player *player = malloc(sizeof(Player));
 
   player->health = 10;
+  player->weapon = NULL;
 
   return player;
 }
 
+void player_equip(Player *player, Weapon *weapon)
+{
+  player->weapon = weapon;
+  printf("You have picked up the %s, it can do a maximum of %d damage.\n",
+         player->weapon->name,
+         player->weapon->damage);
+}
+
 void player_attack(Player *player, Monster *monster)
 {
+  int maximum_damage = 1;
+
+  if (player->weapon) { maximum_damage = player->weapon->damage; }
+
   int hit    = rand() % 2;
-  int damage = (rand() % 5) + 1;
+  int damage = (rand() % maximum_damage) + 1;
 
   if (hit == 1) {
     if (monster->health <= 0) {

@@ -10,6 +10,8 @@ Map *map_create(Room *start, Player *player)
   map->location = start;
   map->player   = player;
 
+  room_print_description(start);
+
   return map;
 }
 
@@ -33,6 +35,11 @@ int map_has_location_at(Map *map, Direction direction)
   }
 
   return has_location;
+}
+
+void map_equip(Map *map)
+{
+  room_equip(map->location, map->player);
 }
 
 void map_move(Map *map, Direction direction)

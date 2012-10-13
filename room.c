@@ -17,8 +17,19 @@ Room *room_create(char *name)
 
   room->name    = strdup(name);
   room->monster = NULL;
+  room->weapon  = NULL;
 
   return room;
+}
+
+void room_equip(Room *room, Player *player)
+{
+  if (room->weapon != NULL) {
+    player_equip(player, room->weapon);
+    room->weapon = NULL;
+  } else {
+    printf("You search the room and find no weapons.\n");
+  }
 }
 
 void room_attack(Room *room, Player *player)
@@ -58,6 +69,9 @@ void room_print_description(Room *room)
   printf("You have entered the %s\n", room->name);
   if(room->monster != NULL) {
     printf("You encounter the %s!\n", room->monster->name);
+  }
+  if(room->weapon != NULL) {
+    printf("You see the %s in the corner of the room.\n", room->weapon->name);
   }
 }
 

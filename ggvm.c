@@ -5,6 +5,7 @@
 #include "room.h"
 #include "player.h"
 #include "map.h"
+#include "weapon.h"
 
 int process_input(Map *game)
 {
@@ -32,7 +33,10 @@ int process_input(Map *game)
       map_move(game, WEST);
       break;
     case 'a':
-    map_attack(game);
+      map_attack(game);
+      break;
+    case 'p':
+      map_equip(game);
       break;
     case 'l':
       map_print_directions(game);
@@ -60,6 +64,10 @@ int main(int argc, char *argv[])
   Room *maze    = room_create("Maze");
   Room *boat    = room_create("Boat Room");
 
+  Weapon *knife = weapon_create("Knife", 5);
+  Weapon *axe   = weapon_create("Axe", 7);
+  Weapon *sword = weapon_create("Sword", 10);
+
   Player *player = player_create();
 
   Monster *minotaur  = monster_create("Minotaur");
@@ -71,6 +79,10 @@ int main(int argc, char *argv[])
   gate->monster   = mcm;
   cannon->monster = crazy_cat;
   boat->monster   = jumpy;
+
+  kitchen->weapon = knife;
+  garden->weapon  = axe;
+  cannon->weapon  = sword;
 
   room_attach(hall, throne, NORTH);
   room_attach(hall, gate, SOUTH);
@@ -105,6 +117,11 @@ int main(int argc, char *argv[])
   monster_destroy(jumpy);
 
   player_destroy(player);
+
+  weapon_destroy(knife);
+  weapon_destroy(axe);
+  weapon_destroy(sword);
+
   map_destroy(map);
 
   return 0;
