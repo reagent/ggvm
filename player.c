@@ -21,8 +21,9 @@ void player_equip(Player *player, Weapon *weapon)
          player->weapon->damage);
 }
 
-void player_attack(Player *player, Monster *monster)
+int player_attack(Player *player, Monster *monster)
 {
+  int killed         = 0;
   int maximum_damage = 1;
 
   if (player->weapon) { maximum_damage = player->weapon->damage; }
@@ -33,18 +34,21 @@ void player_attack(Player *player, Monster *monster)
   if (hit == 1) {
     if (monster->health <= 0) {
       printf("You strike at the lifeless corpse of the %s.\n", monster->name);
+      killed = 1;
     } else {
-
       printf("You land a powerful blow. It does %d damage.\n", damage);
       monster->health -= damage;
 
       if (monster->health <= 0) {
         printf("You have defeated the %s!\n", monster->name);
+        killed = 1;
       }
     }
   } else {
     printf("You swing and miss.\n");
   }
+
+  return killed;
 }
 
 int player_destroy(Player *player)

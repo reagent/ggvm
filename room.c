@@ -34,9 +34,13 @@ void room_equip(Room *room, Player *player)
 
 void room_attack(Room *room, Player *player)
 {
+  int killed = 0;
+
   if (room->monster != NULL) {
-    player_attack(player, room->monster);
-    monster_attack(room->monster, player);
+    killed = player_attack(player, room->monster);
+    if (!killed) {
+      monster_attack(room->monster, player);
+    }
   } else {
     printf("You flail in the air at nothing.\n");
   }

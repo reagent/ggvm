@@ -53,20 +53,23 @@ int main(int argc, char *argv[])
 {
   srand(time(NULL));
 
-  Room *hall    = room_create("Hall");
-  Room *throne  = room_create("Throne");
-  Room *arena   = room_create("Arena");
-  Room *kitchen = room_create("Kitchen");
-  Room *gate    = room_create("Gate");
-  Room *cannon  = room_create("Cannon Room");
-  Room *tower   = room_create("Tower");
-  Room *garden  = room_create("Garden");
-  Room *maze    = room_create("Maze");
-  Room *boat    = room_create("Boat Room");
+  Room *hall         = room_create("Hall");
+  Room *throne       = room_create("Throne");
+  Room *arena        = room_create("Arena");
+  Room *kitchen      = room_create("Kitchen");
+  Room *gate         = room_create("Gate");
+  Room *cannon       = room_create("Cannon Room");
+  Room *tower        = room_create("Tower");
+  Room *garden       = room_create("Garden");
+  Room *maze         = room_create("Maze");
+  Room *boat         = room_create("Boat Room");
+  Room *super_vision = room_create("Super Vision Room");
+  Room *hut          = room_create("Hut Room");
 
   Weapon *knife = weapon_create("Knife", 5);
   Weapon *axe   = weapon_create("Axe", 7);
   Weapon *sword = weapon_create("Sword", 10);
+  Weapon *bow   = weapon_create("Bow", 15);
 
   Player *player = player_create();
 
@@ -74,15 +77,18 @@ int main(int argc, char *argv[])
   Monster *mcm       = monster_create("Million-clawed Monster");
   Monster *crazy_cat = monster_create("Crazy Cat");
   Monster *jumpy     = monster_create("Jumpy Bumpy");
+  Monster *slime     = monster_create("Slime Monster");
 
-  arena->monster  = minotaur;
-  gate->monster   = mcm;
-  cannon->monster = crazy_cat;
-  boat->monster   = jumpy;
+  arena->monster        = minotaur;
+  gate->monster         = mcm;
+  cannon->monster       = crazy_cat;
+  boat->monster         = jumpy;
+  super_vision->monster = slime;
 
-  kitchen->weapon = knife;
-  garden->weapon  = axe;
-  cannon->weapon  = sword;
+  kitchen->weapon      = knife;
+  garden->weapon       = axe;
+  cannon->weapon       = sword;
+  super_vision->weapon = bow;
 
   room_attach(hall, throne, NORTH);
   room_attach(hall, gate, SOUTH);
@@ -93,6 +99,8 @@ int main(int argc, char *argv[])
   room_attach(tower, garden, NORTH);
   room_attach(garden, maze, WEST);
   room_attach(garden, boat, EAST);
+  room_attach(gate, super_vision, WEST);
+  room_attach(garden, hut, NORTH);
 
   Map *map = map_create(hall, player);
 
@@ -110,17 +118,21 @@ int main(int argc, char *argv[])
   room_destroy(garden);
   room_destroy(maze);
   room_destroy(boat);
+  room_destroy(super_vision);
+  room_destroy(hut);
 
   monster_destroy(minotaur);
   monster_destroy(mcm);
   monster_destroy(crazy_cat);
   monster_destroy(jumpy);
+  monster_destroy(slime);
 
   player_destroy(player);
 
   weapon_destroy(knife);
   weapon_destroy(axe);
   weapon_destroy(sword);
+  weapon_destroy(bow);
 
   map_destroy(map);
 
