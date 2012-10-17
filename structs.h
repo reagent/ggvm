@@ -14,6 +14,8 @@ typedef struct Weapon Weapon;
 
 struct Player {
   int health;
+  int weapon_count;
+  Weapon **arsenal;
   Weapon *weapon;
 };
 

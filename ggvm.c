@@ -41,6 +41,9 @@ int process_input(Map *game)
     case 'l':
       map_print_directions(game);
       break;
+    case 'i':
+      map_describe_inventory(game);
+      break;
     default:
       printf("What?: %d\n", ch);
   }

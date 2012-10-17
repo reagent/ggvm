@@ -5,6 +5,7 @@
 
 Map *map_create(Room *start, Player *player);
 int map_has_location_at(Map *map, Direction direction);
+void map_describe_inventory(Map *map);
 void map_equip(Map *map);
 void map_move(Map *map, Direction direction);
 void map_attack(Map *map);

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "map.h"
 #include "room.h"
+#include "player.h"
 
 Map *map_create(Room *start, Player *player)
 {
@@ -35,6 +36,11 @@ int map_has_location_at(Map *map, Direction direction)
   }
 
   return has_location;
+}
+
+void map_describe_inventory(Map *map)
+{
+  player_show_arsenal(map->player);
 }
 
 void map_equip(Map *map)
