@@ -18,11 +18,12 @@ Player *player_create(char *name)
 {
   Player *player = malloc(sizeof(Player));
 
-  player->arsenal      = NULL;
-  player->weapon_count = 0;
-  player->health       = 10;
+  player->arsenal        = NULL;
+  player->weapon_count   = 0;
+  player->health         = 10;
+  player->default_weapon = weapon_create("Fist", 1);
 
-  player_add_weapon(player, weapon_create("Fist", 1));
+  player_add_weapon(player, player->default_weapon);
 
   return player;
 }
@@ -54,10 +55,11 @@ Weapon *player_current_weapon(Player *player)
 
 int player_attack(Player *player, Monster *monster)
 {
-  int killed         = 0;
-  int maximum_damage = player_current_weapon(player)->damage;
+  int killed             = 0;
+  Weapon *current_weapon = player_current_weapon(player);
+  int maximum_damage     = current_weapon->damage;
 
-  if (player->weapon) { maximum_damage = player->weapon->damage; }
+  if (current_weapon) { maximum_damage = current_weapon->damage; }
 
   int hit    = rand() % 2;
   int damage = (rand() % maximum_damage) + 1;
@@ -84,6 +86,8 @@ int player_attack(Player *player, Monster *monster)
 
 int player_destroy(Player *player)
 {
+  weapon_destroy(player->default_weapon);
+  
   free(player->arsenal);
   free(player);
 
