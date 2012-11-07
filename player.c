@@ -7,11 +7,11 @@
 void player_add_weapon(Player *player, Weapon *weapon)
 {
   int index = player->weapon_count;
-
-  player->arsenal = realloc(player->arsenal, ((player->weapon_count + 1) * sizeof(Weapon)));
+  
+  player->arsenal = realloc(player->arsenal, (player->weapon_count +1) * sizeof(Weapon *));
   player->weapon_count++;
 
-  player->arsenal[index] = weapon;
+  *(player->arsenal + index) = weapon;
 }
 
 Player *player_create(char *name)
